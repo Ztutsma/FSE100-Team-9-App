@@ -1,12 +1,13 @@
 body {
   background-image: url("../pexels-francesco-ungaro-169-M.jpg");
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .App {
   text-align: center;
   background-color: #E8E8E8;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -50,7 +51,7 @@ body {
 }
 
 #splash-page {
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
