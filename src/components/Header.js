@@ -1,13 +1,18 @@
 import {Container, Nav, Navbar} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
+import "./../Styles/Header.css";
 
 function Header() {
     return(
         <header>
-            <h1>FMS Logo</h1>
-            <Navbar bg="light" expand="lg">
+            <div id="logo-header">
+                <h1>Improve your child's fine motor skills!</h1>
+            </div>
+            <Navbar bg="light" className="header-navbar">
                 <Container>
-                    <Navbar.Brand href="/Home">Home</Navbar.Brand>
+                    <LinkContainer to="/Home">
+                        <Navbar.Brand>Home</Navbar.Brand>
+                    </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav>

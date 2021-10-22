@@ -1,10 +1,12 @@
-.App {
-  text-align: center;
+body {
+  background-image: url("../pexels-francesco-ungaro-169-M.jpg");
+  background-size: cover;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App {
+  text-align: center;
+  background-color: #E8E8E8;
+  height: 100vh;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,4 +37,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.exercise-header {
+  margin: 2em;
+  text-align: center;
+  list-style-position: inside;
+}
+
+.exercise-rules {
+  text-align: left;
+}
+
+#splash-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

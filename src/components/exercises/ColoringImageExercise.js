@@ -1,9 +1,10 @@
+import Canvas from "./Canvas";
 
 
 function ColoringImageExercise() {
     return(
         <div id="exercise" hidden>
-            <h3>Coloring an Image Exercise</h3>
+            <Canvas height="500" width="500"/>
         </div>
     )
 }

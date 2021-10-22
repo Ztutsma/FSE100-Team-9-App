@@ -1,0 +1,14 @@
+h3 {
+    text-align: center;
+    margin: 1em;
+}
+
+h4{
+    text-align: center;
+    margin: 1em;
+}
+
+.home-buttons {
+    margin: 10em 5em 0 5em;
+    gap: 5em;
+}

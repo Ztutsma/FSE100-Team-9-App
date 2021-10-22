@@ -1,12 +1,13 @@
+import Canvas from "./Canvas";
 
 
 function TappingCirclesExercise() {
     return (
         <div id="exercise" hidden>
-            <h3>Tapping Circles Exercise</h3>
+            <Canvas height="500" width="500"/>
         </div>
-
     )
+
 }
 
 export default TappingCirclesExercise
