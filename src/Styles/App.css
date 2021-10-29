@@ -1,5 +1,5 @@
 body {
-  background-image: url("../pexels-francesco-ungaro-169-M.jpg");
+  background-image: url("../media/pexels-francesco-ungaro-169-M.jpg");
   background-size: cover;
   background-attachment: fixed;
 }
@@ -55,4 +55,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.score-header {
+  font-size: 1.2em;
 }

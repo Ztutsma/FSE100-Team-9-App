@@ -22,8 +22,9 @@ function TappingCirclesHome() {
                             <Col></Col>
                             <Col>
                                 <ol className="exercise-rules">
-                                    <li>Longer rule describing exercise</li>
-                                    <li>Second rule describing exercise but the text is even longer</li>
+                                    <li>Try to click on the moving circle</li>
+                                    <li>Successfully clicking the circle will play a bell sound</li>
+                                    <li>Missing the circle will play a buzzer sound</li>
                                 </ol>
                             </Col>
                             <Col></Col>
@@ -40,8 +41,9 @@ function TappingCirclesHome() {
                                 <Accordion.Header>Rules</Accordion.Header>
                                 <Accordion.Body>
                                     <ol className="exercise-rules">
-                                        <li>Longer rule describing exercise</li>
-                                        <li>Second rule describing exercise but the text is even longer</li>
+                                        <li>Try to click on the moving circle</li>
+                                        <li>Successfully clicking the circle will play a bell sound</li>
+                                        <li>Missing the circle will play a buzzer sound</li>
                                     </ol>
                                 </Accordion.Body>
                             </Accordion.Item>
