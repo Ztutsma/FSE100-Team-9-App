@@ -6,8 +6,13 @@ function TracingLinesHome() {
 
     const handleClick = () =>{
         document.getElementById("exercise-info").hidden = true;
-        document.getElementById("exercise").hidden = false;
         document.getElementById("hidden-exercise-rules").hidden = false;
+        if(document.getElementById("exercise")) {
+            document.getElementById("exercise").hidden = false;
+        }
+        if(document.getElementById("stage")) {
+            document.getElementById("stage").hidden = false;
+        }
     }
 
     return(

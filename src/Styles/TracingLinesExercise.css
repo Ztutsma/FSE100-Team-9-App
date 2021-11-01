@@ -1,0 +1,15 @@
+#stage {
+    width: 600px;
+    height: 400px;
+    position: relative;
+    margin: 10px auto;
+
+}
+
+canvas { position: absolute }
+#game-foreground { z-index: 2; }
+#game-background {
+    z-index: 1;
+    background-color: white;
+    border: 1px solid black;
+}
