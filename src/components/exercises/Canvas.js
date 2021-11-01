@@ -8,7 +8,7 @@ const Canvas = props => {
     const {draw, ...rest} = props
     const canvasRef = useCanvas(draw)
 
-    return <canvas ref={canvasRef} {...rest}/>
+    return <canvas height = {window.innerWidth/3} ref={canvasRef} {...rest}/>
 }
 
 const useCanvas = (draw) => {
@@ -27,10 +27,18 @@ const useCanvas = (draw) => {
             animationFrameID = window.requestAnimationFrame(render)
         }
 
+/*        const handleResize = e => {
+            context.canvas.width = window.innerWidth/3
+            context.canvas.height = context.canvas.width/1.618
+        }*/
+
         render()
+/*        handleResize();
+        window.addEventListener("resize", handleResize);*/
 
         return () => {
             window.cancelAnimationFrame(animationFrameID)
+            //window.removeEventListener("resize", handleResize)
         }
 
     },[draw])

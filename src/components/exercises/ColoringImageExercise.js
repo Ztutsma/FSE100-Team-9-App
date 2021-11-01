@@ -1,6 +1,14 @@
 import Canvas from "./Canvas";
 
 
+/*
+* TODO
+*  1. Find/Make simple objects/shapes to color in
+*  2. Break objects up into simple shapes and draw on canvas
+*  3. Add circle to screen as "paint brush"
+*  4. Change color of object as paint brush goes over shapes
+* */
+
 function ColoringImageExercise() {
 
     const draw = (ctx, frameCount) => {

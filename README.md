@@ -21,4 +21,4 @@ Try switching to the shell and running the following commands:
 2. `rm -r node_modules/`
 3. `npm install`
 
-These steps will clean the npm cache and reinstall the node modules. This usually fixes the issue.
+These steps will clean the npm cache and reinstall the node modules. This may take several minutes but usually fixes the issue.
