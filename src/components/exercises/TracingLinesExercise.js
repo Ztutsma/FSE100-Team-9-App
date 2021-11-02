@@ -1,12 +1,12 @@
 import Canvas from "./Canvas";
 import {useState} from "react";
-import './../../Styles/TracingLinesExercise.css'
+import '../../Styles/Exercise.css'
 
 /*
-TODO
- Add transition to next graph once user has "completed" one
- Add more lines to follow
-*/
+* Possible Additions:
+*  Add transition to next graph once user has "completed" one
+*  Add more lines to follow
+* */
 
 class LineFunction {
     xStart
@@ -16,7 +16,6 @@ class LineFunction {
         this.xStart = xStart
         this.xEnd = xEnd
         this.lineFunction = lineFunction
-        console.log("LineFunc: " + lineFunction(xStart + 2))
     }
 }
 
@@ -144,11 +143,6 @@ function TracingLinesExercise() {
         nearestPoint = graphCoords.array[nearestPointIndex]
         dist_nearestPoint = Math.sqrt(((circlePos.x - 20) - nearestPoint.x)**2 + ((circlePos.y - 20) - nearestPoint.y)**2)
 
-        // Debugging Prints
-/*        console.log("nearest point index: " + nearestPointIndex)
-        console.log("nearest point: " + nearestPoint.x + " " + nearestPoint.y)
-        console.log("circle pos: " + circlePos.x + " " + circlePos.y)*/
-
         // If cursor is too far from the line, change background color to red
         // TODO add sound
         if(dist_nearestPoint > 20) {
@@ -190,7 +184,6 @@ function TracingLinesExercise() {
     }
 
     return(
-
         <div id="stage" hidden>
             <Canvas height="400" width="600" id="game-foreground"
                     onMouseDown={(e) => handleMouseDown(e)}
