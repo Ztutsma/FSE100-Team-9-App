@@ -1,17 +1,11 @@
 import Canvas from "./Canvas";
-import * as constants from "constants";
 import {useState} from "react";
 import './../../Styles/TracingLinesExercise.css'
-import {Col} from "react-bootstrap";
 
 /*
 TODO
- 1. Add bezier curve for lines to follow
- 2. Draw bezier curves in exercise window
- 3. Add formulas to calculate points along bezier curve to use in exercise
- 4. Add circle that needs to be kept "on the line"
-    - Needs to find the closest point along the bezier curve
- 5. Add more curves/lines to follow
+ Add transition to next graph once user has "completed" one
+ Add more lines to follow
 */
 
 class LineFunction {
@@ -82,7 +76,6 @@ function TracingLinesExercise() {
 
     // List of all coordinates in the exercise
     const [graphCoords, setGraphCoords] = useState({array: LineGraphs[1].graphCoordinates()})
-    //let graphCoords = LineGraphs[0].graphCoordinates();
 
     // X and Y offset of the graph
     let xOffset = 20

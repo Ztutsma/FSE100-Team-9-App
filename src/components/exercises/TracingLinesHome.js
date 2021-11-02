@@ -26,8 +26,11 @@ function TracingLinesHome() {
                             <Col></Col>
                             <Col>
                                 <ol className="exercise-rules">
-                                    <li>Longer rule describing exercise</li>
-                                    <li>Second rule describing exercise but the text is even longer</li>
+                                    <li>Once the exercise starts, Click and hold down the mouse button</li>
+                                    <li>Try to trace as close to the line as you can</li>
+                                    <li>If you stray too far from the line the background will turn red</li>
+                                    <li>If you let go of the mouse button while the background is red,
+                                        the circle will be reset back to the closest point on the line </li>
                                 </ol>
                             </Col>
                             <Col></Col>
@@ -44,8 +47,11 @@ function TracingLinesHome() {
                                 <Accordion.Header>Rules</Accordion.Header>
                                 <Accordion.Body>
                                     <ol className="exercise-rules">
-                                        <li>Longer rule describing exercise</li>
-                                        <li>Second rule describing exercise but the text is even longer</li>
+                                        <li>Once the exercise starts, Click and hold down the mouse button</li>
+                                        <li>Try to trace as close to the line as you can</li>
+                                        <li>If you stray too far from the line the background will turn red</li>
+                                        <li>If you let go of the mouse button while the background is red,
+                                            the circle will be reset back to the closest point on the line </li>
                                     </ol>
                                 </Accordion.Body>
                             </Accordion.Item>
