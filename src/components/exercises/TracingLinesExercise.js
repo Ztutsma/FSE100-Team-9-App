@@ -50,6 +50,7 @@ class LineGraph {
 
     // Return list of x/y values along full graph
     graphCoordinates(){
+        this.coordinates = []
 
         for (let i = 0; i < this.lineFunctions.length; i++) {
             this.partialGraphCoords(i)
@@ -83,7 +84,8 @@ function TracingLinesExercise() {
     // Cursor control variables
     const [circlePos, setCirclePos] = useState({x: xOffset, y:yOffset})
     const [wasInitialized, setWasInitialized] = useState(false)
-    
+
+
     const drawBackground = (ctx, frameCount) => {
 
         if (!wasInitialized) {
@@ -91,7 +93,7 @@ function TracingLinesExercise() {
 
             ctx.beginPath()
             ctx.moveTo(20, 20)
-            for (let i = 0; i < graphCoords.array.length; i++) {
+            for (let i = 1; i < graphCoords.array.length; i++) {
                 ctx.lineTo(xOffset + graphCoords.array[i].x, yOffset + graphCoords.array[i].y)
             }
             ctx.stroke()
@@ -185,7 +187,7 @@ function TracingLinesExercise() {
 
     return(
         <div id="stage" hidden>
-            <Canvas height="400" width="600" id="game-foreground"
+            <Canvas height="402" width="602" id="game-foreground"
                     onMouseDown={(e) => handleMouseDown(e)}
                     onMouseUp={(e) => handleMouseUp(e)}
                     onMouseMove={(e) => handleMouseMove(e)}
