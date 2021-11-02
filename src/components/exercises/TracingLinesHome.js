@@ -23,7 +23,6 @@ function TracingLinesHome() {
                     <div id="exercise-info">
                         <p>Rules of the exercise:</p>
                         <Row>
-                            <Col></Col>
                             <Col>
                                 <ol className="exercise-rules">
                                     <li>Once the exercise starts, Click and hold down the mouse button</li>
@@ -33,14 +32,12 @@ function TracingLinesHome() {
                                         the circle will be reset back to the closest point on the line </li>
                                 </ol>
                             </Col>
-                            <Col></Col>
                         </Row>
                         <Button onClick={handleClick} id="hide-button" variant="success">Begin Exercise</Button>
                     </div>
                 </div>
                 <TracingLinesExercise />
                 <Row id="hidden-exercise-rules" hidden>
-                    <Col></Col>
                     <Col>
                         <Accordion>
                             <Accordion.Item eventKey="0">
@@ -57,7 +54,6 @@ function TracingLinesHome() {
                             </Accordion.Item>
                         </Accordion>
                     </Col>
-                    <Col></Col>
                 </Row>
             </Container>
         </div>

@@ -19,7 +19,6 @@ function TappingCirclesHome() {
                     <div id="exercise-info">
                         <p>Rules of the exercise:</p>
                         <Row>
-                            <Col></Col>
                             <Col>
                                 <ol className="exercise-rules">
                                     <li>Try to click on the moving circle</li>
@@ -27,14 +26,12 @@ function TappingCirclesHome() {
                                     <li>Missing the circle will play a buzzer sound</li>
                                 </ol>
                             </Col>
-                            <Col></Col>
                         </Row>
                         <Button onClick={handleClick} id="hide-button" variant="success">Begin Exercise</Button>
                     </div>
                 </div>
                 <TappingCirclesExercise />
                 <Row id="hidden-exercise-rules" hidden>
-                    <Col></Col>
                     <Col>
                         <Accordion>
                             <Accordion.Item eventKey="0">
@@ -49,7 +46,6 @@ function TappingCirclesHome() {
                             </Accordion.Item>
                         </Accordion>
                     </Col>
-                    <Col></Col>
                 </Row>
             </Container>
         </div>
