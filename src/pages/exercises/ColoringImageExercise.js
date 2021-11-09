@@ -1,7 +1,7 @@
-import Canvas from "./Canvas";
-import {drawMouse} from "./Animals";
+import Canvas from "../../components/exercises/Canvas";
+import {drawMouse} from "../../components/exercises/Animals";
 import {useState} from "react";
-import './../../Styles/Exercise.css'
+import '../../Styles/Exercise.css'
 import {Row} from "react-bootstrap";
 
 /*

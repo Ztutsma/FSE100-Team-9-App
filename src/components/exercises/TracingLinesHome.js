@@ -1,4 +1,4 @@
-import TracingLinesExercise from "./TracingLinesExercise";
+import TracingLinesExercise from "../../pages/exercises/TracingLinesExercise";
 import {Col, Container, Row, Button, Accordion} from "react-bootstrap";
 
 

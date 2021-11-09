@@ -1,4 +1,4 @@
-import Canvas from "./Canvas";
+import Canvas from "../../components/exercises/Canvas";
 import {useState} from "react";
 import '../../Styles/Exercise.css'
 

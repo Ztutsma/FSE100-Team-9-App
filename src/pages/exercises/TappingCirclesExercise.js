@@ -1,5 +1,5 @@
-import Canvas from "./Canvas";
-import './../../Styles/Canvas.css';
+import Canvas from "../../components/exercises/Canvas";
+import '../../Styles/Canvas.css';
 import wrongSound from '../../media/buzzer_x.wav';
 import correctSound from '../../media/Winning-bell-melody-sound-effect.mp3';
 import {Col, Row} from "react-bootstrap";

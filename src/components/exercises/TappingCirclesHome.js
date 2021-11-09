@@ -1,4 +1,4 @@
-import TappingCirclesExercise from "./TappingCirclesExercise";
+import TappingCirclesExercise from "../../pages/exercises/TappingCirclesExercise";
 import {Col, Container, Row, Button, Accordion} from "react-bootstrap";
 
 

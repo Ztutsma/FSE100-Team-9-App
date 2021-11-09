@@ -1,8 +1,8 @@
 import './Styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Switch} from "react-router-dom";
-import Splash from './components/Splash';
-import Home from "./components/Home";
+import Splash from './pages/Splash';
+import Home from "./pages/Home";
 import {Container} from "react-bootstrap";
 
 function App() {

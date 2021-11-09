@@ -1,4 +1,4 @@
-import ColoringImageExercise from "./ColoringImageExercise";
+import ColoringImageExercise from "../../pages/exercises/ColoringImageExercise";
 import {Col, Container, Row, Button, Accordion} from "react-bootstrap";
 
 
