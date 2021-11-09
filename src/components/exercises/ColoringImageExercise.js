@@ -1,5 +1,5 @@
-import Canvas from "../../components/exercises/Canvas";
-import {drawMouse} from "../../components/exercises/Animals";
+import Canvas from "./Canvas";
+import {drawMouse} from "./Animals";
 import {useState} from "react";
 import '../../Styles/Exercise.css'
 import {Row} from "react-bootstrap";
@@ -66,7 +66,7 @@ function ColoringImageExercise() {
     let progressBarColor = "Green"
 
     // Draw fully colored animal onto background
-    const drawBackground = (ctx, frameCount) => {
+    const drawBackground = (ctx) => {
         if(!bgWasInitialized){
             //drawMouse(ctx)
             animal.drawAnimal(ctx)
@@ -76,9 +76,8 @@ function ColoringImageExercise() {
 
     // Cover fully colored animal with white shapes
     // Color will be revealed as the white shapes are erased
-    const drawForeground = (ctx, frameCount) => {
+    const drawForeground = (ctx) => {
         if(!fgWasInitialized){
-            //drawMouse(ctx, false)
             animal.drawAnimal(ctx, false)
             setFgWasInitialized(true)
 
@@ -154,7 +153,6 @@ function ColoringImageExercise() {
     let numTotalTime
     let startTime
     let timerRunning = false
-    let seconds
     let milliseconds
 
     const handleMouseMove = (e) => {
@@ -189,7 +187,7 @@ function ColoringImageExercise() {
     return(
         <div id="exercise" hidden>
             <Row>
-                <h3>Time Spent Out of Bounds: {totalTime}</h3>
+                <h3>Time Spent Out of Bounds: {totalTime} seconds</h3>
             </Row>
             <div id="stage" hidden>
                 <Canvas height="402" width="602" id="game-foreground"

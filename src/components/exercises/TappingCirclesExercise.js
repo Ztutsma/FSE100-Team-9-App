@@ -1,4 +1,4 @@
-import Canvas from "../../components/exercises/Canvas";
+import Canvas from "./Canvas";
 import '../../Styles/Canvas.css';
 import wrongSound from '../../media/buzzer_x.wav';
 import correctSound from '../../media/Winning-bell-melody-sound-effect.mp3';
@@ -42,7 +42,7 @@ function TappingCirclesExercise() {
         circleY += circleRadius
     }
 
-    const draw = (ctx, frameCount) => {
+    const draw = (ctx) => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         ctx.fillStyle = circleFill
 

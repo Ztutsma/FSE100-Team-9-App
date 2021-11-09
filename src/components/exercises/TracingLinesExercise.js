@@ -1,6 +1,7 @@
-import Canvas from "../../components/exercises/Canvas";
+import Canvas from "./Canvas";
 import {useState} from "react";
 import '../../Styles/Exercise.css'
+import {Row} from "react-bootstrap";
 
 /*
 * Possible Additions:
@@ -86,7 +87,7 @@ function TracingLinesExercise() {
     const [wasInitialized, setWasInitialized] = useState(false)
 
 
-    const drawBackground = (ctx, frameCount) => {
+    const drawBackground = (ctx) => {
 
         if (!wasInitialized) {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -102,12 +103,11 @@ function TracingLinesExercise() {
     }
     
 
-    const drawCircle = (ctx, frameCount) => {
+    const drawCircle = (ctx) => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         ctx.fillStyle = '#000000'
 
         ctx.beginPath()
-
         ctx.arc(circlePos.x, circlePos.y, 20, 0, 2*Math.PI)
         ctx.fillStyle = "rgba(0,0,0,0)"
         ctx.fill()
@@ -115,7 +115,7 @@ function TracingLinesExercise() {
     }
 
 
-    // Control Methods ==================================================
+    // Game Control ==================================================
     let mouseX
     let mouseY
     let nearestPoint
@@ -127,51 +127,75 @@ function TracingLinesExercise() {
 
     const [isDragging, setIsDragging] = useState(false)
     const [nearestPointIndex, setNearestPointIndex] = useState(0)
+    const [gameHasEnded, setGameHasEnded] = useState(false)
+    const [timesAwayFromLine, setTimesAwayFromLine] = useState(0);
+    const [stillAwayFromLine, setStillAwayFromLine] = useState(false);
+
+    const getCircleDistanceToPoint = (pt) => {
+        return Math.sqrt(((circlePos.x - 20) - pt.x)**2 + ((circlePos.y - 20) - pt.y)**2)
+    }
 
     const handleMouseDown = (e) => {
         setIsDragging(true)
     }
 
     const handleMouseMove = (e) => {
-        const rect = e.target.getBoundingClientRect()
-        if (isDragging) {
-            mouseX = e.clientX - rect.left
-            mouseY = e.clientY - rect.top
+        if (!gameHasEnded) {
+            const rect = e.target.getBoundingClientRect()
+            if (isDragging) {
+                mouseX = e.clientX - rect.left
+                mouseY = e.clientY - rect.top
 
-            setCirclePos({x: mouseX, y: mouseY})
+                setCirclePos({x: mouseX, y: mouseY})
+            }
+
+            // Get coordinates/distance to current nearest point
+            nearestPoint = graphCoords.array[nearestPointIndex]
+            dist_nearestPoint = getCircleDistanceToPoint(nearestPoint)
+
+            // If cursor is too far from the line, change background color to red and start timer
+            // TODO add sound
+            if(dist_nearestPoint > 20) {
+                document.getElementById("game-background").style.background = "RED"
+                if (!stillAwayFromLine) {
+                    setTimesAwayFromLine(timesAwayFromLine + 1)
+                    setStillAwayFromLine(true)
+                }
+            } else {
+                document.getElementById("game-background").style.background = "WHITE"
+                if (stillAwayFromLine) {
+                    setStillAwayFromLine(false)
+                }
+            }
+
+            // Get distance to previous index
+            if (nearestPointIndex > 0) {
+                lastPoint = graphCoords.array[nearestPointIndex - 1]
+                dist_lastPoint = getCircleDistanceToPoint(lastPoint)
+            }
+
+            // Get distance to next index
+            if (nearestPointIndex < graphCoords.array.length - 1) {
+                nextPoint = graphCoords.array[nearestPointIndex + 1]
+                dist_nextPoint = getCircleDistanceToPoint(nextPoint)
+            }
+
+            // Change known nearest point to whichever point is closer
+            if (dist_lastPoint < dist_nearestPoint) {
+                setNearestPointIndex(nearestPointIndex - 1)
+            }
+            if (dist_nextPoint < dist_nearestPoint) {
+                setNearestPointIndex(nearestPointIndex + 1)
+            }
+
+            if (nearestPointIndex === graphCoords.array.length - 1) {
+                setGameHasEnded(true);
+            }
+
+            return
         }
 
-        // Get coordinates/distance to current nearest point
-        nearestPoint = graphCoords.array[nearestPointIndex]
-        dist_nearestPoint = Math.sqrt(((circlePos.x - 20) - nearestPoint.x)**2 + ((circlePos.y - 20) - nearestPoint.y)**2)
-
-        // If cursor is too far from the line, change background color to red
-        // TODO add sound
-        if(dist_nearestPoint > 20) {
-            document.getElementById("game-background").style.background = "RED"
-        } else {
-            document.getElementById("game-background").style.background = "WHITE"
-        }
-
-        // Get distance to previous index
-        if (nearestPointIndex > 0) {
-            lastPoint = graphCoords.array[nearestPointIndex - 1]
-            dist_lastPoint = Math.sqrt(((circlePos.x - 20) - lastPoint.x)**2 + ((circlePos.y - 20) - lastPoint.y)**2)
-        }
-
-        // Get distance to next index
-        if (nearestPointIndex < graphCoords.array.length - 1) {
-            nextPoint = graphCoords.array[nearestPointIndex + 1]
-            dist_nextPoint = Math.sqrt(((circlePos.x - 20) - nextPoint.x)**2 + ((circlePos.y - 20) - nextPoint.y)**2)
-        }
-
-        // Change known nearest point to whichever point is closer
-        if (dist_lastPoint < dist_nearestPoint) {
-            setNearestPointIndex(nearestPointIndex - 1)
-        }
-        if (dist_nextPoint < dist_nearestPoint) {
-            setNearestPointIndex(nearestPointIndex + 1)
-        }
+        document.getElementById("game-background").style.background = "GREEN"
     }
 
     const handleMouseUp = (e) => {
@@ -186,14 +210,19 @@ function TracingLinesExercise() {
     }
 
     return(
-        <div id="stage" hidden>
-            <Canvas height="402" width="602" id="game-foreground"
-                    onMouseDown={(e) => handleMouseDown(e)}
-                    onMouseUp={(e) => handleMouseUp(e)}
-                    onMouseMove={(e) => handleMouseMove(e)}
-                    draw={drawCircle}/>
-            <Canvas height="400" width="600" id="game-background"
-                    draw={drawBackground}/>
+        <div id="exercise" hidden>
+            <div id="stage" hidden>
+                <Row>
+                    <h3>Times the line was not followed: {timesAwayFromLine}</h3>
+                </Row>
+                <Canvas height="402" width="602" id="game-foreground"
+                        onMouseDown={(e) => handleMouseDown(e)}
+                        onMouseUp={(e) => handleMouseUp(e)}
+                        onMouseMove={(e) => handleMouseMove(e)}
+                        draw={drawCircle}/>
+                <Canvas height="400" width="600" id="game-background"
+                        draw={drawBackground}/>
+            </div>
         </div>
     )
 }

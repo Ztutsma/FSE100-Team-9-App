@@ -18,27 +18,18 @@ const useCanvas = (draw) => {
 
         const canvas = canvasRef.current
         const context = canvas.getContext('2d')
-        let frameCount = 0
+
         let animationFrameID
 
         const render = () => {
-            frameCount++
-            draw(context, frameCount)
+            draw(context)
             animationFrameID = window.requestAnimationFrame(render)
         }
 
-/*        const handleResize = e => {
-            context.canvas.width = window.innerWidth/3
-            context.canvas.height = context.canvas.width/1.618
-        }*/
-
         render()
-/*        handleResize();
-        window.addEventListener("resize", handleResize);*/
 
         return () => {
             window.cancelAnimationFrame(animationFrameID)
-            //window.removeEventListener("resize", handleResize)
         }
 
     },[draw])

@@ -1,9 +1,9 @@
 
 import Header from "../components/Header";
 import {Route, Switch} from "react-router-dom";
-import TracingLinesHome from "../components/exercises/TracingLinesHome";
-import TappingCirclesHome from "../components/exercises/TappingCirclesHome";
-import ColoringAnImageHome from "../components/exercises/ColoringImageHome";
+import TracingLinesHome from "./exercises/TracingLinesHome";
+import TappingCirclesHome from "./exercises/TappingCirclesHome";
+import ColoringAnImageHome from "./exercises/ColoringImageHome";
 import HomeContent from "./HomeContent";
 
 
