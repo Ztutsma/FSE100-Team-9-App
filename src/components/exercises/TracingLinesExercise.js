@@ -72,6 +72,8 @@ LineGraphs[1] = new LineGraph()
 LineGraphs[1].addLineFunction(0,100, (x)=>{return .03*(x**2)})
 LineGraphs[1].addLineFunction(100,200, (x)=>{return 300})
 LineGraphs[1].addLineFunction(200,400, (x)=>{return (-.5*(x-200) + 300)})
+LineGraphs[2] = new LineGraph()
+LineGraphs[2].addLineFunction(0,400, (x)=>{return 0})
 
 function TracingLinesExercise() {
 
@@ -118,21 +120,55 @@ function TracingLinesExercise() {
     // Game Control ==================================================
     let mouseX
     let mouseY
+    let prevPoint
     let nearestPoint
-    let lastPoint
-    let nextPoint
+    let tempPoint
+    let dist_prevPoint
     let dist_nearestPoint
-    let dist_lastPoint
-    let dist_nextPoint
+    let dist_tempPoint
 
     const [isDragging, setIsDragging] = useState(false)
     const [nearestPointIndex, setNearestPointIndex] = useState(0)
     const [gameHasEnded, setGameHasEnded] = useState(false)
-    const [timesAwayFromLine, setTimesAwayFromLine] = useState(0);
-    const [stillAwayFromLine, setStillAwayFromLine] = useState(false);
+    const [timesAwayFromLine, setTimesAwayFromLine] = useState(0)
+    const [stillAwayFromLine, setStillAwayFromLine] = useState(false)
+    const [colorChangeTime, setColorChangeTime] = useState(1000)
 
     const getCircleDistanceToPoint = (pt) => {
         return Math.sqrt(((circlePos.x - 20) - pt.x)**2 + ((circlePos.y - 20) - pt.y)**2)
+    }
+
+    const getNearestPoint = () => {
+        prevPoint = graphCoords.array[nearestPointIndex]
+        dist_prevPoint = getCircleDistanceToPoint(prevPoint)
+
+        // closest point found
+        nearestPoint = prevPoint
+        dist_nearestPoint = dist_prevPoint
+
+        let newIndex = 0
+
+        for (let i = 0; i < graphCoords.array.length; i++) {
+            tempPoint = graphCoords.array[i]
+            dist_tempPoint = getCircleDistanceToPoint(tempPoint)
+
+            if (dist_tempPoint < dist_nearestPoint) {
+                nearestPoint = tempPoint
+                dist_nearestPoint = dist_tempPoint
+                newIndex = i
+            }
+        }
+
+        if (nearestPoint !== prevPoint) {
+            setNearestPointIndex(newIndex)
+            dist_prevPoint = dist_nearestPoint
+        }
+
+        if (nearestPointIndex === graphCoords.array.length - 1 && dist_prevPoint <= 20) {
+            setGameHasEnded(true);
+        }
+
+        return dist_prevPoint
     }
 
     const handleMouseDown = (e) => {
@@ -149,63 +185,40 @@ function TracingLinesExercise() {
                 setCirclePos({x: mouseX, y: mouseY})
             }
 
-            // Get coordinates/distance to current nearest point
-            nearestPoint = graphCoords.array[nearestPointIndex]
-            dist_nearestPoint = getCircleDistanceToPoint(nearestPoint)
+            dist_prevPoint = getNearestPoint();
 
             // If cursor is too far from the line, change background color to red and start timer
-            // TODO add sound
-            if(dist_nearestPoint > 20) {
-                document.getElementById("game-background").style.background = "RED"
+            if(dist_prevPoint > 20) {
+                setColorChangeTime(Date.now)
+                document.getElementById("game-background").style.background = "#FFCCCC"
                 if (!stillAwayFromLine) {
                     setTimesAwayFromLine(timesAwayFromLine + 1)
                     setStillAwayFromLine(true)
                 }
             } else {
-                document.getElementById("game-background").style.background = "WHITE"
+                // Only change back to white if user has spent 150 ms on line to prevent flashing
+                if (Date.now() - colorChangeTime > 150) {
+                    document.getElementById("game-background").style.background = "WHITE"
+                }
                 if (stillAwayFromLine) {
                     setStillAwayFromLine(false)
                 }
             }
 
-            // Get distance to previous index
-            if (nearestPointIndex > 0) {
-                lastPoint = graphCoords.array[nearestPointIndex - 1]
-                dist_lastPoint = getCircleDistanceToPoint(lastPoint)
-            }
-
-            // Get distance to next index
-            if (nearestPointIndex < graphCoords.array.length - 1) {
-                nextPoint = graphCoords.array[nearestPointIndex + 1]
-                dist_nextPoint = getCircleDistanceToPoint(nextPoint)
-            }
-
-            // Change known nearest point to whichever point is closer
-            if (dist_lastPoint < dist_nearestPoint) {
-                setNearestPointIndex(nearestPointIndex - 1)
-            }
-            if (dist_nextPoint < dist_nearestPoint) {
-                setNearestPointIndex(nearestPointIndex + 1)
-            }
-
-            if (nearestPointIndex === graphCoords.array.length - 1) {
-                setGameHasEnded(true);
-            }
-
             return
         }
 
-        document.getElementById("game-background").style.background = "GREEN"
+        document.getElementById("game-background").style.background = "#5cb85c"
     }
 
     const handleMouseUp = (e) => {
         setIsDragging(false)
 
         // Reset cursor back to line if it is too far from line when mouse is released
-        nearestPoint = graphCoords.array[nearestPointIndex]
-        dist_nearestPoint = Math.sqrt(((circlePos.x - 20) - nearestPoint.x)**2 + ((circlePos.y - 20) - nearestPoint.y)**2)
-        if(dist_nearestPoint > 20) {
-            setCirclePos({x: nearestPoint.x + xOffset, y: nearestPoint.y + yOffset})
+        prevPoint = graphCoords.array[nearestPointIndex]
+        dist_prevPoint = Math.sqrt(((circlePos.x - 20) - prevPoint.x)**2 + ((circlePos.y - 20) - prevPoint.y)**2)
+        if(dist_prevPoint > 20) {
+            setCirclePos({x: prevPoint.x + xOffset, y: prevPoint.y + yOffset})
         }
     }
 
