@@ -1,6 +1,6 @@
 #stage {
     width: 600px;
-    height: 400px;
+    height: 460px;
     position: relative;
     margin: 10px auto;
     text-align: left;
@@ -15,4 +15,11 @@ canvas { position: absolute }
     z-index: 1;
     background-color: white;
     border: 1px solid black;
+}
+
+.exercise-button {
+    width: 200px;
+    justify-content: center;
+    margin: 10px auto;
+    display: flow;
 }

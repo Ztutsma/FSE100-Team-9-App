@@ -1,7 +1,8 @@
 import Canvas from "./Canvas";
 import {useState} from "react";
 import '../../Styles/Exercise.css'
-import {Row} from "react-bootstrap";
+import {Button, Row} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap";
 
 /*
 * Possible Additions:
@@ -72,13 +73,16 @@ LineGraphs[1] = new LineGraph()
 LineGraphs[1].addLineFunction(0,100, (x)=>{return .03*(x**2)})
 LineGraphs[1].addLineFunction(100,200, (x)=>{return 300})
 LineGraphs[1].addLineFunction(200,400, (x)=>{return (-.5*(x-200) + 300)})
+
 LineGraphs[2] = new LineGraph()
 LineGraphs[2].addLineFunction(0,400, (x)=>{return 0})
 
 function TracingLinesExercise() {
 
+    const [currentLineGraph, setCurrentLineGraph] = useState(LineGraphs[1])
+
     // List of all coordinates in the exercise
-    const [graphCoords, setGraphCoords] = useState({array: LineGraphs[1].graphCoordinates()})
+    const [graphCoords, setGraphCoords] = useState({array: currentLineGraph.graphCoordinates()})
 
     // X and Y offset of the graph
     let xOffset = 20
@@ -148,6 +152,7 @@ function TracingLinesExercise() {
 
         let newIndex = 0
 
+        // Find next closest point
         for (let i = 0; i < graphCoords.array.length; i++) {
             tempPoint = graphCoords.array[i]
             dist_tempPoint = getCircleDistanceToPoint(tempPoint)
@@ -159,6 +164,7 @@ function TracingLinesExercise() {
             }
         }
 
+        // set new nearest point
         if (nearestPoint !== prevPoint) {
             setNearestPointIndex(newIndex)
             dist_prevPoint = dist_nearestPoint
@@ -176,6 +182,7 @@ function TracingLinesExercise() {
     }
 
     const handleMouseMove = (e) => {
+        if (!wasInitialized) return
         if (!gameHasEnded) {
             const rect = e.target.getBoundingClientRect()
             if (isDragging) {
@@ -235,7 +242,13 @@ function TracingLinesExercise() {
                         draw={drawCircle}/>
                 <Canvas height="400" width="600" id="game-background"
                         draw={drawBackground}/>
+
             </div>
+            <Row>
+                <LinkContainer to="/Home" className="exercise-button">
+                    <Button>Back to Home</Button>
+                </LinkContainer>
+            </Row>
         </div>
     )
 }
