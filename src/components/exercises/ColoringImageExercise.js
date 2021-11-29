@@ -2,7 +2,8 @@ import Canvas from "./Canvas";
 import {drawMouse} from "./Animals";
 import {useState} from "react";
 import '../../Styles/Exercise.css'
-import {Row} from "react-bootstrap";
+import {Button, Row} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap";
 
 /*
 * Possible Additions:
@@ -150,6 +151,8 @@ function ColoringImageExercise() {
 
 
     const [totalTime, setTotalTime] = useState("0")
+    const [outOfBoundsTimerRunning, setOutOfBoundsTimerRunning] = useState(false)
+    const [outOfBoundsStartTime, setOutOfBoundsStartTime] = useState(Date.now())
     let numTotalTime
     let startTime
     let timerRunning = false
@@ -165,18 +168,19 @@ function ColoringImageExercise() {
             // Set color of progress bar depending on if mouse is in bounds or not
             mouseInBounds = checkMouseInBounds(mouseX, mouseY)
             if(!mouseInBounds) {
-                startTime = Date.now()
-                timerRunning = true
+                if (!outOfBoundsTimerRunning) {
+                    setOutOfBoundsTimerRunning(true)
+                    setOutOfBoundsStartTime(Date.now())
+                }
+
                 progressBarColor = "Red"
             } else {
-                if (timerRunning) {
-                    milliseconds = Date.now() - startTime
+                if (outOfBoundsTimerRunning) {
+                    milliseconds = Date.now() - outOfBoundsStartTime
                     numTotalTime = parseFloat(totalTime)
                     numTotalTime += milliseconds/1000
                     setTotalTime(numTotalTime.toFixed(3))
-                    timerRunning = false
-
-                    //totalTime += milliseconds
+                    setOutOfBoundsTimerRunning(false)
                 }
 
                 progressBarColor = "Green"
@@ -186,10 +190,10 @@ function ColoringImageExercise() {
 
     return(
         <div id="exercise" hidden>
-            <Row>
-                <h3>Time Spent Out of Bounds: {totalTime} seconds</h3>
-            </Row>
             <div id="stage" hidden>
+                <Row>
+                    <h3>Time Spent Out of Bounds: {totalTime} seconds</h3>
+                </Row>
                 <Canvas height="402" width="602" id="game-foreground"
                         onMouseDown={(e) => handleMouseDown(e)}
                         onMouseUp={(e) => handleMouseUp(e)}
@@ -197,6 +201,11 @@ function ColoringImageExercise() {
                         draw={drawForeground}/>
                 <Canvas height="400" width="600" id="game-background" draw={drawBackground}/>
             </div>
+            <Row>
+                <LinkContainer to="/Home" className="exercise-button">
+                    <Button>Back to Home</Button>
+                </LinkContainer>
+            </Row>
         </div>
     )
 }

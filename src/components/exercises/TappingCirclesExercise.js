@@ -2,8 +2,9 @@ import Canvas from "./Canvas";
 import '../../Styles/Canvas.css';
 import wrongSound from '../../media/buzzer_x.wav';
 import correctSound from '../../media/Winning-bell-melody-sound-effect.mp3';
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import {useState} from "react";
+import {LinkContainer} from "react-router-bootstrap";
 
 
 function TappingCirclesExercise() {
@@ -126,16 +127,23 @@ function TappingCirclesExercise() {
 
     return (
         <div id="exercise" hidden>
+            <div id="stage" hidden>
+                <Row>
+                    <Col></Col>
+                    <Col><h3 className="score-header">Current Score: {scores.currentScore}</h3></Col>
+                    <Col><h3 className="score-header">Best Score: {scores.bestScore}</h3></Col>
+                    <Col></Col>
+                </Row>
+                <Canvas height="400" width="600" className="eCanvas"
+                        onClick={(e) => handleClick(e)}
+                        draw={draw}
+                />
+            </div>
             <Row>
-                <Col></Col>
-                <Col><h3 className="score-header">Current Score: {scores.currentScore}</h3></Col>
-                <Col><h3 className="score-header">Best Score: {scores.bestScore}</h3></Col>
-                <Col></Col>
+                <LinkContainer to="/Home" className="exercise-button">
+                    <Button>Back to Home</Button>
+                </LinkContainer>
             </Row>
-            <Canvas height="400" width="600" className="eCanvas"
-                    onClick={(e) => handleClick(e)}
-                    draw={draw}
-            />
         </div>
     )
 }
