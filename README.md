@@ -17,8 +17,7 @@ You will also see any lint errors in the console.
 ### If the project does not run in Replit
 
 Try switching to the shell and running the following commands:
-1. `npm cache clean --force`
-2. `rm -r node_modules/`
-3. `npm install`
+1. `rm -r node_modules/`
+2. `npm install`
 
 These steps will clean the npm cache and reinstall the node modules. This may take several minutes but usually fixes the issue.
